@@ -28,3 +28,45 @@ O **Gateway** atua como ponto único de entrada, roteando e filtrando as requisi
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Vitor192/Gateway.git
+
+   🛠️ Exemplo de Configuração
+
+No arquivo application.yml, podemos configurar o Gateway com rotas para outros microsserviços:
+
+yml 
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: product-catalog
+          uri: http://localhost:8081
+          predicates:
+            - Path=/products/**
+        - id: shopping-cart
+          uri: http://localhost:8082
+          predicates:
+            - Path=/cart/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+📚 Próximos Passos
+
+Adicionar autenticação e autorização no Gateway.
+
+Implementar log centralizado de requisições.
+
+Integrar com Circuit Breaker e resiliência via Spring Cloud.
+
+
+
